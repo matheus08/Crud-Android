@@ -1,1 +1,41 @@
+ public void atualizarListaDeContatos(){
+
+        LinearLayout LinerLayoutRecords = (LinearLayout)
+                findViewById(R.id.objetosContatos);
+        LinerLayoutRecords.removeAllViews();
+
+        List<Contato> students = new ContatoController(this).listarContatos();
+
+        if (students.size() >0) {
+
+             for (Contato obj: students) {
+
+                 int id = obj.getId(); //chave pk da tabela
+                 String nome = obj.getNome();
+                 String email = obj.getEmail();
+
+                 String textViewContents = nome + " - " + email;
+
+                 TextView textViewContatoItem = new TextView(this);
+                 textViewContatoItem.setPadding(0, 10, 0, 10);
+                 textViewContatoItem.setText(textViewContents);
+                 textViewContatoItem.setTag(Integer.toString(id));
+
+                 LinerLayoutRecords.addView(textViewContatoItem);
+                 textViewContatoItem.setOnClickListener((View.OnClickListener) new RetrieveOnLongClickListener());
+
+             }
+
+             }
+
+             else {
+
+                 TextView locationIntem = new TextView(this);
+                 locationIntem.setPadding(8, 8, 8, 8);
+                 locationIntem.setText("nenhum contato cadastrado");
+
+                 LinerLayoutRecords.addView(locationIntem);
+             }
+        }
+    }
 
